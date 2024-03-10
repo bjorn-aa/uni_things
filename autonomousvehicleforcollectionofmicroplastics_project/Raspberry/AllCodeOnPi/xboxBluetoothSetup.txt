@@ -1,0 +1,122 @@
+Søren PI MAC 
+ethernet 	= b8:27:eb:e1:7e:81
+wifi 		= b8:27:eb:b4:2b:d4
+
+#################################################################################################
+#																								#
+#							XBOX 360 C library and guide section								#
+#																								#
+#################################################################################################
+# Xbox 360 wireless c library
+https://github.com/MauriceGit/XBox_Controller_Linux_Interface
+
+# please read the joystick.h aswell
+https://github.com/torvalds/linux/blob/master/include/uapi/linux/joystick.h
+
+###############################################
+# 	xbox events from Maurice xbox controll
+#	xbox controller events from joystick.h
+###############################################
+btn y  		: button = 3 { true / false}
+btn X  		: button = 2 { true / false}
+btn B  		: button = 1 { true / false}
+btn A  		: button = 0 { true / false}
+btn LB 		: button = 4 { true / false}
+btn RB 		: button = 5 { true / false}
+btn pic 	: button = 6 { true / false}
+btn line 	: button = 7 { true / false}
+
+#(ABS_RX / ABS_RY)
+analoug up/down : axis = 4 { unsigned uint16}
+analoug left/right : axis = 3 { unsigned uint16}
+analough button press : button = 10 { true / false}
+
+#(ABS_LX / ABS_LY)
+analoug up/down : axis = 1 { unsigned uint16}
+analoug left/right : axis = 0 { unsigned uint16}
+analough button press : button = 10 { true / false}
+
+# arrows
+up/down : axis = 7 { [true = - 32767, false = 0] / [true = 32767, false = 0]}
+left/right : axis = 6 { [true = - 32767, false = 0] / [true = 32767, false = 0]}
+
+# LT / RT
+analoug LT : axis = 2 { pressed = 32767, center = 0, release = 32767} #should be converted to something usefull if needed
+analoug RT : axis = 7 { pressed = 32767, center = 0, release = 32767} #should be converted to something usefull if needed
+
+########################################
+
+
+
+################################################
+# This is an advanced xbox controller driver
+# This will enable the rumble function of the controller
+# Remember to follow his guide on github!
+
+https://github.com/atar-axis/xpadneo/blob/master/docs/README.md
+################################################
+
+# Fixing bluetooth
+https://www.raspberrypi.org/forums/viewtopic.php?t=171999
+# do the whole delete section and then install pi-bluetooth
+
+
+#################################################################################################
+#																								#
+#							XBOX 360 PYTHON library and guide section							#
+#																								#
+#################################################################################################
+
+################################################
+# The evdev for controlling the xbox controller via python
+# install evdev for python 3.7
+pip3 install evdev
+################################################
+
+################################################
+# use this file as an example
+https://github.com/atar-axis/xpadneo/tree/master/misc/examples/python_asyncio_evdev
+
+#or this page
+https://raspberry-valley.azurewebsites.net/Map-Bluetooth-Controller-using-Python/
+
+# mapping xbox controller
+https://github.com/atar-axis/xpadneo/tree/master/misc/examples/python_asyncio_evdev
+
+# Check /dev/input/event to find xbox controller (This will also show keyevents
+python /usr/local/lib/python3.7/dist-packages/evdev/evtest.py
+################################################
+
+
+
+
+# keyevents in python:
+
+Button is type 1 (EV_KEY)
+analoug is type 3 (EV_ABS)
+
+
+LT : event.code = 2 {0 - 1023}
+LB : event.code = 310 {true / false}
+
+(ABS_X / ABS_Y)
+analoug below : event.code = 0 or 1 { unsigned uint16}
+analough button press : event.code = 317 { true / false}
+
+up/down : event.code = 17 {up = -1 / down = 1
+left/right : event.code = 16 {left = -1 / right = 1
+
+left button middle : event.code = 314 { true / false}
+right button middle : event.code = 315 { true / false}
+
+btn y  : event.code = 308 { true / false}
+btn X  : event.code = 307 { true / false}
+btn B  : event.code = 305 { true / false}
+btn A  : event.code = 304 { true / false}
+
+(ABS_RX / ABS_RY)
+analoug below : event.code = 3 or 4 { unsigned uint16}
+analough button press : event.code = 318 { true / false}
+
+LT : event.code = 5 {0 - 1023}
+RB : event.code = 311 {true / false}
