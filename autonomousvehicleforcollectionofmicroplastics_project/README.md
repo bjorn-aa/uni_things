@@ -1,1 +1,1 @@
-Project about creating an autonomous vehicle for collecting and filtering microplastics from sand.
+Group project about creating an autonomous vehicle for collecting and filtering microplastics from sand. My part was mainly working with the different microcontrollers, Raspberry Pi, motor control, implementation of sensors and testing using a mini-prototype I created.
